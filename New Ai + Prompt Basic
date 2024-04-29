@@ -1,0 +1,32 @@
+# Import libraries
+import requests  # for fetching data from public APIs
+from transformers import pipeline  # for using pre-trained language models
+
+# Define public data source (replace with your chosen API)
+data_url = "https://raw.githubusercontent.com/datasets/wikipedia_datasets/master/en/wiki_00.bz2"
+
+# Load data (replace with your data processing logic)
+def load_data():
+  response = requests.get(data_url)
+  # Process the downloaded data (e.g., clean, tokenize)
+  return processed_data
+
+# Load pre-trained language model
+model_name = "facebook/bart-base"  # Replace with a suitable model
+qa_pipeline = pipeline("question-answering", model=model_name)
+
+# Function to answer user questions
+def answer_question(question):
+  context = load_data()  # Replace with actual data loading
+  answer = qa_pipeline({"question": question, "context": context})["answer"]
+  return answer
+
+# Main loop for user interaction
+while True:
+  user_question = input("Ask your question (or type 'quit' to exit): ")
+  if user_question.lower() == "quit":
+    break
+  answer = answer_question(user_question)
+  print(f"Answer: {answer}")
+
+print("Thank you for using the AI tool!")
